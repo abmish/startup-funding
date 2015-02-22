@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Startup-funding prediction</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Startup-funding prediction">
+  <meta name="author" content="Abhinav Mishra">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Startup-funding prediction</h1>
+    <h2>Coursera project &gt; Developing Data Products-011</h2>
+    <p>Abhinav Mishra<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Idea</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>The &#39;<strong>startup-funding</strong>&#39; app predicts</h3>
+
+<h3>&#39;how much fund can you raise for your startup?&#39;</h3>
+
+<h3>Every founder/ co-founder wants an idea of the amount to begin with so this app presents a very basic prediction model</h3>
+
+<p><img src="assets/img/investors.jpg" alt=""></p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Data</h2>
+  </hgroup>
+  <article data-timings="">
+    <h3>The basis of prediction is a subset of publicly available funding data on Crunchbase about startups.</h3>
+
+<p>it is available to everyone after registration at <a href="https://info.crunchbase.com/about/crunchbase-data-exports/">crunchbase- data api</a>  </p>
+
+<h3>The most basic parameters are headcount, funding round and domain of operation</h3>
+
+<p><img src="assets/img/graph.jpg" alt="">  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Data Preparation</h2>
+  </hgroup>
+  <article data-timings="">
+    <h4>There is lot of noise in data, so prepare it for consumption</h4>
+
+<pre><code class="r">raw_funding &lt;- data.frame(read.csv(&quot;TechCrunchcontinentalUSA.csv&quot;, header = T, 
+                                   colClasses=c(&quot;NULL&quot;,&quot;NULL&quot;, &quot;numeric&quot;, NA, &quot;NULL&quot;, 
+                                                &quot;NULL&quot;, &quot;NULL&quot;, NA, &quot;NULL&quot;, NA)))  
+funding &lt;- raw_funding[complete.cases(raw_funding[, c(&#39;numEmps&#39;)]), ]  
+funding &lt;- funding[(funding$category %in% c(&#39;mobile&#39;, &#39;software&#39;, &#39;web&#39;)),]  
+summary(funding)  
+</code></pre>
+
+<pre><code>##     numEmps              category     raisedAmt             round    
+##  Min.   :    0.00   web      :465   Min.   :    10000   a      :203  
+##  1st Qu.:    7.00   software : 49   1st Qu.:  1000000   b      :114  
+##  Median :   20.00   mobile   : 15   Median :  3500000   angel  : 81  
+##  Mean   :   87.78            :  0   Mean   :  8109098   seed   : 65  
+##  3rd Qu.:   50.00   biotech  :  0   3rd Qu.:  9000000   c      : 42  
+##  Max.   :20000.00   cleantech:  0   Max.   :300000000   d      : 11  
+##                     (Other)  :  0                       (Other): 13
+</code></pre>
+
+<p>Amount is predicted with rest of the parameters  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Shiny App</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>Available at <a href="https://abmish.shinyapps.io/startup-funding/">https://abmish.shinyapps.io/startup-funding/</a><br></li>
+<li>Change headcount, funding round and domain to view prediction<br></li>
+</ol>
+
+<p><img src="assets/img/sapp.jpg" alt="">  </p>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Idea'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Data'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Data Preparation'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Shiny App'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>

@@ -5,7 +5,7 @@ funding <- funding[(funding$category %in% c('mobile', 'software', 'web')),]
 model <- model <- lm(raisedAmt ~ numEmps + category + round, data=funding)
 shinyServer(
   function(input, output) {
-    output$Text <- renderText({
+    output$raisedFund <- renderText({
       data <- data.frame(matrix(rep(NA, 3), nrow=1))
       colnames(data) <- c("numEmps","category","round")
       data$numEmps <- input$emps
